@@ -7,11 +7,22 @@ function parseCSV(text) {
 
   for (let i = 0; i < text.length; i++) {
     const c = text[i];
-    if (c === '"' && text[i + 1] === '"') { field += '"'; i++; }
-    else if (c === '"') inQuotes = !inQuotes;
-    else if (c === ',' && !inQuotes) { row.push(field); field = ''; }
-    else if (c === '\n' && !inQuotes) { row.push(field); rows.push(row); row = []; field = ''; }
-    else field += c;
+    if (c === '"' && text[i + 1] === '"') {
+      field += '"';
+      i++;
+    } else if (c === '"') {
+      inQuotes = !inQuotes;
+    } else if (c === ',' && !inQuotes) {
+      row.push(field);
+      field = '';
+    } else if (c === '\n' && !inQuotes) {
+      row.push(field);
+      rows.push(row);
+      row = [];
+      field = '';
+    } else {
+      field += c;
+    }
   }
   row.push(field);
   rows.push(row);
@@ -19,13 +30,17 @@ function parseCSV(text) {
   const headers = rows.shift();
 
   return rows
-    .filter(r => r.some(cell => cell.trim() !== "")) // skip blank lines
+    .filter(r => r.some(cell => cell.trim() !== ''))
     .map(r => {
       const obj = Object.fromEntries(headers.map((h, i) => [h, r[i]]));
-      // Convert numbers if they exist
-      if(obj.price !== undefined) obj.price = parseFloat(obj.price);
-      if(obj.inventory !== undefined) obj.inventory = parseInt(obj.inventory,10);
+
+      obj.price = parseFloat(obj.price);
+      obj.inventory = parseInt(obj.inventory, 10);
       obj.tags = obj.tags ? obj.tags.split('|') : [];
+
+      // 🔥 Image derived from product number
+      obj.image = `images/products/${obj.product_number}.jpg`;
+
       return obj;
     });
 }
