@@ -26,28 +26,6 @@ fetch(CATEGORY_FILES[category])
     setupSorting();
   });
 
-function parseCSV(text) {
-  const rows = [];
-  let field = '', row = [], inQuotes = false;
-  for (let i=0;i<text.length;i++){
-    const c=text[i];
-    if(c=='"'&&text[i+1]=='"'){field+='"';i++;} 
-    else if(c=='"') inQuotes=!inQuotes;
-    else if(c==','&&!inQuotes){row.push(field);field='';}
-    else if(c=='\n'&&!inQuotes){row.push(field);rows.push(row);row=[];field='';}
-    else field+=c;
-  }
-  row.push(field); rows.push(row);
-  const headers=rows.shift();
-  return rows.map(r=>{
-    const o=Object.fromEntries(headers.map((h,i)=>[h,r[i]]));
-    o.price=parseFloat(o.price);
-    o.inventory=parseInt(o.inventory,10);
-    o.tags=o.tags?o.tags.split('|'):[];
-    return o;
-  });
-}
-
 function setupSorting() {
   document.getElementById('sort-price')
     .addEventListener('change', e => {
