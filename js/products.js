@@ -1,14 +1,18 @@
 // ============================
-// Load CSV and render products
+// Global products array
+// ============================
+let allProducts = []; // stores all products for rendering
+
+// ============================
+// Load CSV and render category products
 // ============================
 async function loadProducts(csvPath) {
   try {
     const response = await fetch(csvPath);
     if (!response.ok) throw new Error(`Failed to fetch ${csvPath}`);
     const text = await response.text();
-
-    const products = parseCSV(text); // parse CSV into array
-    renderProducts(products);        // display all products
+    allProducts = parseCSV(text); // parse CSV into array of objects
+    renderProducts(allProducts);  // render product cards
   } catch (err) {
     console.error('Error loading products:', err);
     const container = document.getElementById('product-list');
@@ -17,21 +21,21 @@ async function loadProducts(csvPath) {
 }
 
 // ============================
-// Render product cards on category page
+// Render category page product cards
 // ============================
 function renderProducts(list) {
   const container = document.getElementById('product-list');
   if (!container) return;
 
-  container.innerHTML = ''; // clear previous content
+  container.innerHTML = ''; // clear existing
 
   list.forEach(p => {
-    if (!p || !p.product_number) return; // guard against bad CSV
-
-    const imageSrc = `images/products/${p.product_number}.jpg`;
+    if (!p || !p.product_number) return; // guard
 
     const div = document.createElement('div');
     div.className = 'product-card';
+
+    const imageSrc = `images/products/${p.product_number}.jpg`;
 
     div.innerHTML = `
       <a href="product.html?sku=${encodeURIComponent(p.product_number)}" class="product-link">
@@ -51,7 +55,6 @@ function renderProducts(list) {
             : `<span class="out">Out of stock</span>`}
         </div>
         <p class="description">${p.description || ''}</p>
-        <div class="tags">${p.tags && p.tags.length ? p.tags.join(', ') : ''}</div>
       </a>
     `;
 
