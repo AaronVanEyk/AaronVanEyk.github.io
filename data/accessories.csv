@@ -1,5 +1,5 @@
 product_number,name,price,inventory,description,tags
-RF-001,NMO Connector A,12.99,42,"Gold-plated NMO connector
+AC-001,NMO Connector A,12.99,42,"Gold-plated NMO connector
 • DC short
 • Weather resistant",connector|nmo|rf
-RF-002,NMO Connector B,9.50,0,"Low-profile DC short base",connector|dc-short
+AC-002,NMO Connector B,9.50,0,"Low-profile DC short base",connector|dc-short
