@@ -16,8 +16,8 @@
   </script>
 
   <main>
-    <h1>Category Products</h1>
-    <div id="product-list"></div> <!-- container for all product cards -->
+    <h1 id="category-title">Category Products</h1>
+    <div id="product-list"></div> <!-- container for category products -->
   </main>
 
   <!-- Footer -->
@@ -33,9 +33,21 @@
   <script src="js/utils.js"></script>
   <script src="js/products.js"></script>
   <script>
+    // Determine category from URL
     const params = new URLSearchParams(window.location.search);
-    const category = params.get('cat') || 'connectors';
-    loadProducts(`data/${category}.csv`);
+    const category = params.get('cat') || 'accessoires'; // default category
+    const csvFile = `/data/${category}.csv`;
+
+    // Update title
+    const titleMap = {
+      accessoires: 'Radio Accessories',
+      antennas: 'Antennas',
+      patches: 'Patches'
+    };
+    document.getElementById('category-title').textContent = titleMap[category] || 'Category Products';
+
+    // Load products for this category
+    loadProducts(csvFile);
   </script>
 </body>
 </html>
