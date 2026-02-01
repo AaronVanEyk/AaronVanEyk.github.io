@@ -36,7 +36,7 @@ function parseCSV(text) {
 
       obj.price = parseFloat(obj.price);
       obj.inventory = parseInt(obj.inventory, 10);
-      obj.tags = obj.tags ? obj.tags.split('|') : [];
+      obj.tags = obj.tags && obj.tags.length > 0 ? obj.tags.split('|') : [];
 
       // 🔥 Image derived from product number
       obj.image = `images/products/${obj.product_number}.jpg`;
