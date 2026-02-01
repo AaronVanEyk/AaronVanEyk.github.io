@@ -1,5 +1,5 @@
 // products.js
-console.log('products.js loaded');
+
 // Fetch and render products for category page
 async function loadProducts(csvPath) {
   try {
@@ -7,6 +7,8 @@ async function loadProducts(csvPath) {
     if (!response.ok) throw new Error(`Failed to fetch ${csvPath}`);
     const text = await response.text();
     const products = parseCSV(text);
+
+    console.log('renderProducts called with', products);
     renderProducts(products);
   } catch (err) {
     console.error('Error loading products:', err);
@@ -17,22 +19,24 @@ async function loadProducts(csvPath) {
 
 // Render category page product cards safely
 function renderProducts(list) {
-  
   const container = document.getElementById('product-list');
-  container.innerHTML = '';
-  console.log('renderProducts called with', list);
+  if (!container) return;
 
-  list.forEach(p => {
+  container.innerHTML = '';
+
+  list.forEach((p, i) => {
     console.log('Rendering product:', p);
 
-    // Step 2: guard against undefined/malformed products
+    // Guard against undefined/malformed product
     if (!p || !p.product_number) return;
 
     const div = document.createElement('div');
-    div.className = 'product';
+    div.className = 'product-card';
 
+    // Use placeholder if image missing
     const imageSrc = `images/products/${p.product_number}.jpg`;
 
+    // Template literal for the card
     div.innerHTML = `
       <a href="product.html?sku=${encodeURIComponent(p.product_number)}" class="product-link">
         <img
@@ -40,7 +44,7 @@ function renderProducts(list) {
           alt="${p.name || 'Product image'}"
           class="product-image"
           loading="lazy"
-          onerror="this.src='images/products/placeholder.png'"
+          onerror="this.src='images/products/placeholder.jpg'"
         >
         <div class="sku">#${p.product_number}</div>
         <h3>${p.name || 'Unnamed Product'}</h3>
@@ -54,40 +58,7 @@ function renderProducts(list) {
         <div class="tags">${p.tags && p.tags.length ? p.tags.join(', ') : ''}</div>
       </a>
     `;
+
     container.appendChild(div);
   });
-}
-
-// Render product detail page safely
-function renderProduct(p) {
-  const container = document.getElementById('product-details');
-
-  if (!p || !p.product_number) {
-    container.textContent = 'Product not found.';
-    return;
-  }
-
-  const imageSrc = `images/products/${p.product_number}.jpg`;
-
-  container.innerHTML = `
-    <img
-      src="${imageSrc}"
-      alt="${p.name || 'Product image'}"
-      class="product-detail-image"
-      onerror="this.src='images/products/placeholder.png'"
-    >
-
-    <h1>${p.name || 'Unnamed Product'}</h1>
-    <div class="sku">Product #${p.product_number}</div>
-    <div class="price">$${p.price ? p.price.toFixed(2) : '0.00'}</div>
-
-    <div>
-      ${p.inventory && p.inventory > 0
-        ? `In stock: ${p.inventory}`
-        : `<span class="out">Out of stock</span>`}
-    </div>
-
-    <p class="description">${p.description || ''}</p>
-    <div class="tags">${p.tags && p.tags.length ? p.tags.join(', ') : ''}</div>
-  `;
 }
