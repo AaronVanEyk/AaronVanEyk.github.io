@@ -2,22 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Catalog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Catalog - Home</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <div data-include="includes/header.html"></div>
 
-<div data-include="includes/header.html"></div>
+  <main>
+    <h1>Search Products</h1>
+    <input type="text" id="search" placeholder="Search by name, SKU, description, or tag">
 
-<main>
-  <h1>Search Products</h1>
-  <input id="search" type="search" placeholder="Search products…">
-  <div id="results" class="product-grid"></div>
-</main>
+    <div id="results" class="product-grid"></div>
+  </main>
 
-<div data-include="includes/footer.html"></div>
+  <div data-include="includes/footer.html"></div>
 
-<script src="js/include.js"></script>
-<script src="js/search.js"></script>
+  <script src="js/include.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/search.js"></script>
 </body>
 </html>
