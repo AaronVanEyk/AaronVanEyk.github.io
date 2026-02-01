@@ -12,16 +12,21 @@
   <main>
     <h1 id="category-title"></h1>
 
+    <!-- Search and sort bar -->
     <div class="search-sort-bar">
-      <input type="text" id="search" placeholder="Search this category...">
-      <button id="search-btn">Search</button>
+      <div class="search-controls">
+        <input type="text" id="search" placeholder="Search this category...">
+        <button id="search-btn">Search</button>
+      </div>
 
-      <label for="sort-price">Sort by price:</label>
-      <select id="sort-price">
-        <option value="">Default</option>
-        <option value="asc">Lowest to Highest</option>
-        <option value="desc">Highest to Lowest</option>
-      </select>
+      <div class="sort-controls">
+        <label for="sort-price">Sort by price:</label>
+        <select id="sort-price">
+          <option value="">Default</option>
+          <option value="asc">Lowest to Highest</option>
+          <option value="desc">Highest to Lowest</option>
+        </select>
+      </div>
     </div>
 
     <div id="product-list" class="product-grid"></div>
@@ -32,25 +37,5 @@
   <script src="js/include.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/products.js"></script>
-  <script>
-    // Search functionality on category page
-    const searchInput = document.getElementById('search');
-    const searchBtn = document.getElementById('search-btn');
-
-    function performSearch() {
-      const q = searchInput.value.toLowerCase();
-      const filtered = products.filter(p =>
-        p.name.toLowerCase().includes(q) ||
-        p.product_number.toLowerCase().includes(q) ||
-        p.description.toLowerCase().includes(q) ||
-        p.tags.some(t => t.includes(q))
-      );
-      renderProducts(filtered);
-    }
-
-    searchInput.addEventListener('input', performSearch);
-    searchBtn.addEventListener('click', performSearch);
-    searchInput.addEventListener('keypress', e => { if(e.key==='Enter') performSearch(); });
-  </script>
 </body>
 </html>
