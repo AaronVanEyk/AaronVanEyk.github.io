@@ -1,22 +1,37 @@
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
+/* Container for search and sort controls */
+.search-sort-bar {
+  display: flex;
+  flex-direction: column; /* stack vertically */
+  gap: 0.75rem;          /* space between search and sort */
+  margin-bottom: 1rem;
 }
 
-.category-card {
-  display: block;
-  padding: 1rem;
-  background: #f5f5f5;
-  border-radius: 8px;
-  text-align: center;
-  text-decoration: none;
-  color: #333;
-  transition: transform 0.2s, box-shadow 0.2s;
+.search-controls {
+  display: flex;
+  gap: 0.5rem;           /* space between input and button */
+  flex-wrap: wrap;        /* wrap on smaller screens */
 }
 
-.category-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+.search-controls input {
+  flex: 1;                /* input expands to fill available width */
+  min-width: 150px;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.search-controls button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.sort-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sort-controls select {
+  padding: 0.5rem;
+  font-size: 1rem;
 }
