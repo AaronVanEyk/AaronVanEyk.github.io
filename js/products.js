@@ -1,5 +1,5 @@
 // products.js
-
+console.log('products.js loaded');
 // Fetch and render products for category page
 async function loadProducts(csvPath) {
   try {
