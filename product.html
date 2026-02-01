@@ -3,20 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Catalog - Product</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Product Details</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div data-include="includes/header.html"></div>
+  <!-- header -->
+  <div id="header-placeholder"></div>
+  <script>
+    fetch('header.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('header-placeholder').innerHTML = html);
+  </script>
 
   <main>
-    <div id="product-details"></div>
+    <div id="product-details">
+      <!-- Product details injected by product.js -->
+    </div>
   </main>
 
-  <div data-include="includes/footer.html"></div>
+  <!-- footer -->
+  <div id="footer-placeholder"></div>
+  <script>
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('footer-placeholder').innerHTML = html);
+  </script>
 
+  <!-- scripts -->
   <script src="js/include.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/product.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get('cat') || 'connectors';
+    const sku = params.get('sku');
+    if (sku) loadProduct(`data/${category}.csv`);
+  </script>
 </body>
 </html>
