@@ -1,21 +1,24 @@
 // products.js
 
-// Fetch and render products for category page
+// === Step: Global products array for search/filter ===
+let allProducts = []; // global
+
+// === Step: Load CSV and populate products ===
 async function loadProducts(csvPath) {
   try {
     const response = await fetch(csvPath);
     if (!response.ok) throw new Error(`Failed to fetch ${csvPath}`);
     const text = await response.text();
-    const products = parseCSV(text);
-
-    console.log('renderProducts called with', products);
-    renderProducts(products);
+    allProducts = parseCSV(text); // save globally for filtering/search
+    renderProducts(allProducts);   // draw initial product cards
+    populateTagFilter(allProducts); // fill dropdown
   } catch (err) {
-    console.error('Error loading products:', err);
+    console.error(err);
     const container = document.getElementById('product-list');
     if (container) container.innerHTML = '<p>Failed to load products.</p>';
   }
 }
+
 
 // Render category page product cards safely
 function renderProducts(list) {
