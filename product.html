@@ -7,10 +7,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- header -->
+  <!-- Header -->
   <div id="header-placeholder"></div>
   <script>
-    fetch('header.html')
+    fetch('./header.html')
       .then(res => res.text())
       .then(html => document.getElementById('header-placeholder').innerHTML = html);
   </script>
@@ -21,15 +21,15 @@
     </div>
   </main>
 
-  <!-- footer -->
+  <!-- Footer -->
   <div id="footer-placeholder"></div>
   <script>
-    fetch('footer.html')
+    fetch('./footer.html')
       .then(res => res.text())
       .then(html => document.getElementById('footer-placeholder').innerHTML = html);
   </script>
 
-  <!-- scripts -->
+  <!-- Scripts -->
   <script src="js/include.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/product.js"></script>
