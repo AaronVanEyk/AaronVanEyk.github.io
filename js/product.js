@@ -20,11 +20,11 @@ async function loadProduct(csvPath) {
   }
 }
 
-// Render the product detail safely
+// Render product detail safely
 function renderProduct(p) {
   const container = document.getElementById('product-details');
+  if (!container) return;
 
-  // Step 2: guard against undefined/malformed product
   if (!p || !p.product_number) {
     container.textContent = 'Product not found.';
     return;
@@ -37,19 +37,16 @@ function renderProduct(p) {
       src="${imageSrc}"
       alt="${p.name || 'Product image'}"
       class="product-detail-image"
-      onerror="this.src='images/products/placeholder.png'"
+      onerror="this.src='images/products/placeholder.jpg'"
     >
-
     <h1>${p.name || 'Unnamed Product'}</h1>
     <div class="sku">Product #${p.product_number}</div>
     <div class="price">$${p.price ? p.price.toFixed(2) : '0.00'}</div>
-
     <div>
       ${p.inventory && p.inventory > 0
         ? `In stock: ${p.inventory}`
         : `<span class="out">Out of stock</span>`}
     </div>
-
     <p class="description">${p.description || ''}</p>
     <div class="tags">${p.tags && p.tags.length ? p.tags.join(', ') : ''}</div>
   `;
