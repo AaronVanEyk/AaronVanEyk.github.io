@@ -1,5 +1,7 @@
 product_number,name,price,inventory,description,tags
-AC-001,NMO Connector A,12.99,42,"Gold-plated NMO connector
-• DC short
-• Weather resistant",connector|nmo|rf
-AC-002,NMO Connector B,9.50,0,"Low-profile DC short base",connector|dc-short
+USB-SC-CM108,CM108 USB Sound Card,9.99,2,"• Contains 1 - 3.5mm TRS Speaker Jack and 1 - 3.5mm TRS Microphone Jack
+• Suitible for DIY radio digital interface",usb|sound-card|cm108|digital|interface
+A-BNCF-4MMB,BNC-Female Dipole Adapter,9.99,1,"• Female BNC to 4mm Banana adapter
+• Also known as a BNC cobrahead or dipole tee • Suitible for DIY dipole antennas",cobrahead|dipole|BNC
+A-BNCM-4MMB,BNC-Female Dipole Adapter,9.99,1,"• Male BNC to 4mm Banana adapter
+• Also known as a BNC cobrahead or dipole tee • Suitible for DIY dipole antennas",cobrahead|dipole|BNC
